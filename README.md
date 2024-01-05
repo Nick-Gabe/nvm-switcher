@@ -7,11 +7,11 @@ Automatically switch node versions through nvm based on package.json recommended
 - First of all, make sure you have `NVM` installed:
   - Windows: [nvm-windows repo](https://github.com/coreybutler/nvm-windows)
   - Linux/Mac: [nvm repo](https://github.com/nvm-sh/nvm)
-- Clone this repository for any folder you'd like:
+- Clone this repository into any folder you'd like:
   - `git clone https://github.com/Nick-Gabe/nvm-switcher.git`
 - Install the code in your shell:
   - Check what is the configuration file of your shell, for example `.zshrc`, `.bashrc`, `$profile`...
-  - Add the following line to the end of it: `nvm use \$(node <directory>/nvm-switcher)`
+  - Add the following line to the end of it: `nvm use $(node <directory>/nvm-switcher)`
   - Replace `<directory>` by the directory the repository is in.
 
 After all those steps, once you open a shell, it will automatically execute the `nvm-switcher` command and find the optimal version for you.
