@@ -1,0 +1,15 @@
+{
+  "name": "nvm-switcher",
+  "version": "1.0.0",
+  "description": "Automatically switch node versions through nvm based on package.json recommended engine version.",
+  "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

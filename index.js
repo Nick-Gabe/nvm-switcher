@@ -14,9 +14,13 @@ try {
 const parsedPackageJson = JSON.parse(packageJson);
 
 // Extract an array of accepted Node.js versions from the engines.node field
-const packageJsonNodeVersions = parsedPackageJson.engines.node
-  .split(/\|\||\s/)
+const packageJsonNodeVersions = parsedPackageJson?.engines?.node
+  ?.split(/\|\||\s/)
   .map((version) => version.trim().replace(".x", ""));
+
+if (!packageJsonNodeVersions?.length) {
+  useVersion("current");
+}
 
 const minimumVersion = getSemanticVersion(
   packageJsonNodeVersions.find((version) => version.startsWith(">"))
