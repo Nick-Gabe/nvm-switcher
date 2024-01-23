@@ -2,10 +2,10 @@ const { getSemanticVersion } = require("./getSemanticVersion");
 
 /**
  * Extracts the major, minor and patch version from a string: [major, minor, patch]
- * @param {string[]} packageJsonNodeVersions - An array of Node.js versions parsed from package.json
+ * @param {string[]} nodeVersions - An array of Node.js versions parsed from nvmrc or package.json
  */
 
-function getMinimumAndMaximumVersion(packageJsonNodeVersions) {
+function getMinimumAndMaximumVersion(nodeVersions) {
   const minimumVersion = getSemanticVersion(
     packageJsonNodeVersions.find((version) => version.startsWith(">"))
   );

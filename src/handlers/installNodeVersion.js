@@ -4,7 +4,7 @@ const { parseVersions } = require("../utils/parseVersions");
 const { useVersion } = require("../utils/useVersion");
 
 /**
- * Installs the latest Node version according to what is encountered in package.json
+ * Installs the latest Node version according to what is encountered in nvmrc or package.json
  * @param {string} nvmSource - The path where Node Version Manager (NVM) is installed
  * @param {object} minimumVersion - The minimum version to be compared with
  * @param {object} maximumVersion - The maximum version to be compared with

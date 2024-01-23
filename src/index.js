@@ -1,39 +1,25 @@
 // @ts-check
-const fs = require("fs");
-const { chooseNodeVersionIfInstalled } = require("./handlers/chooseNodeVersionIfInstalled");
-const { getMinimumAndMaximumVersion } = require("./utils/getMinimumAndMaximumVersion");
-const { getPackageJsonNodeVersions } = require("./utils/getPackageJsonNodeVersions");
-const { installNodeVersion } = require("./handlers/installNodeVersion");
-const { useMaximumVersion } = require("./utils/useMaximumVersion");
+const { handleNvmFile } = require("./handlers/handleNvmFile");
+const { handlePackageJsonFile } = require("./handlers/handlePackageJsonFile");
+const { readFile } = require("./utils/readFile");
 const { useVersion } = require("./utils/useVersion");
 
-let packageJson = "";
-
 try {
-  packageJson = fs.readFileSync("package.json", "utf-8");
+  const nvmFileContent = readFile(".nvmrc");
+  const packageJsonFileContent = readFile("package.json");
 
-  const parsedPackageJson = JSON.parse(packageJson);
-
-  const packageJsonNodeVersions = getPackageJsonNodeVersions(parsedPackageJson);
-
-  if (!packageJsonNodeVersions?.length) {
-    useVersion("current");
+  if ((packageJsonFileContent === null) && (nvmFileContent === null)) {
+    throw new Error(".nvmrc and package.json files not found. Setting the current installed version."); 
   }
 
-  const { minimumVersion, maximumVersion } = getMinimumAndMaximumVersion(packageJsonNodeVersions);
-
-  // If the engines.node has only fixed versions, use the biggest one
-  if (!minimumVersion && !maximumVersion) {
-    useMaximumVersion(packageJsonNodeVersions)
+  if (nvmFileContent) {
+    handleNvmFile(nvmFileContent)
   }
 
-  // The exec command loses the nvm context, so we need to source it again
-  const nvmSource = `. ${process.env.NVM_DIR}/nvm.sh`;
-
-  chooseNodeVersionIfInstalled(nvmSource, minimumVersion, maximumVersion);
-
-  installNodeVersion(nvmSource, minimumVersion, maximumVersion);
+  if (packageJsonFileContent) {
+    handlePackageJsonFile(packageJsonFileContent);
+  }
 } catch {
-  // Use the current version if there is no package.json
+  // Use the current version if there are no package.json and nvmrc files or any error occurs
   useVersion("current");
 }

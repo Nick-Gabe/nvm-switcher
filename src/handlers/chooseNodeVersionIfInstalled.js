@@ -4,7 +4,7 @@ const { parseVersions } = require("../utils/parseVersions");
 const { useVersion } = require("../utils/useVersion");
 
 /**
- * Chooses and uses a Node.js version from the installed versions based if it matches the one from package.json 
+ * Chooses and uses a Node.js version from the installed versions based if it matches the one from nvmrc or package.json
  * @param {string} nvmSource - The path where Node Version Manager (NVM) is installed
  * @param {object} minimumVersion - The minimum version to be compared with
  * @param {object} maximumVersion - The maximum version to be compared with
